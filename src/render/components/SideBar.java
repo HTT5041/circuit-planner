@@ -10,6 +10,6 @@ public class SideBar extends JComponent {
     @Override
     protected void paintComponent(Graphics g) {
         g.setColor(Constants.lightGrey);
-        g.fillRect(0, 0, RenderEngine.frameWidth/10, RenderEngine.frameHeight);
+        g.fillRect(0, 0, 75, RenderEngine.frameHeight);
     }
 }
