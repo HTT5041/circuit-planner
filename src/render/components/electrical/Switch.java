@@ -1,6 +1,5 @@
 package render.components.electrical;
 
-import render.RenderEngine;
 import render.components.DragableComponent;
 
 import java.awt.*;
@@ -12,16 +11,18 @@ public class Switch extends DragableComponent {
         y = y1;
         width = 66;
         height = 40;
+        setBounds(x, y, width, height);
     }
 
     @Override
-    protected void paintComponent(Graphics g) {
+    public void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
+        g2d.setColor(Color.BLACK);
         g2d.setStroke(new BasicStroke(1));
-        g2d.drawLine(x, y + 20, x + 20, y + 20);
-        g2d.drawRoundRect(x + 20, y + 16, 8, 8, 8, 8);
-        g2d.drawLine(x + 28, y + 16, x + 28 + 15, y + 6);
-        g2d.drawRoundRect(x + 28 + 15, y + 16, 8, 8, 8, 8);
-        g2d.drawLine(x + 28 + 15 + 8, y + 20, x + 28 + 15 + 8 + 16, y + 20);
+        g2d.drawLine(0, 20, 20, 20);
+        g2d.drawRoundRect(20, 16, 8, 8, 8, 8);
+        g2d.drawLine(28, 16, 28 + 15, 6);
+        g2d.drawRoundRect(28 + 15, 16, 8, 8, 8, 8);
+        g2d.drawLine(28 + 15 + 8, 20, 28 + 15 + 8 + 16, + 20);
     }
 }

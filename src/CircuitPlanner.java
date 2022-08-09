@@ -1,18 +1,37 @@
-import render.RenderEngine;
+import render.RenderFrame;
 import render.components.SideBar;
 import render.components.electrical.Switch;
 import util.Constants;
 
-//Todo
-// Figure out a way to handle how to draw the sidebar and other stuff below comps
+import javax.swing.*;
+
 
 public class CircuitPlanner {
 
-    public static void main(String[] args) {
-        Constants.renderEngine = new RenderEngine();
-        Constants.renderEngine.addComponent(new Switch(8, 50));
-        Constants.renderEngine.addComponent(new Switch(8, 100));
-        Constants.renderEngine.addComponent(new SideBar());
+    private static void createAndShowGUI() {
+        //Create and set up the window.
+        JFrame frame = new JFrame("Circuit Planner");
+        frame.setSize(800, 600);
+        frame.setResizable(false);
+        frame.setLayout(null);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        //Create and set up the content pane.
+        RenderFrame contentPane = new RenderFrame();
+        contentPane.setOpaque(true);
+        frame.setContentPane(contentPane);
+
+        //Display the window.
+        frame.setVisible(true);
+
+        Constants.contentPane = contentPane;
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        createAndShowGUI();
+
+        Constants.contentPane.addComponent(new SideBar(), Constants.L_BACKGROUND);
+        Constants.contentPane.addComponent(new Switch(8, 50), Constants.L_COMPONENT);
     }
 
 }
