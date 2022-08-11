@@ -1,22 +1,25 @@
 package events;
 
-import events.impl.EventListener;
-import events.impl.MouseDraggedListener;
-import events.impl.MousePressedListener;
-import events.impl.MouseReleasedListener;
+import events.impl.*;
 
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 
 public class EventManager {
 
     private static ArrayList<EventListener> listeners = new ArrayList<>();
 
     public static void postMousePressedEvent(MouseEvent e){
-        for(EventListener listener : listeners){
-            if(listener instanceof MousePressedListener){
-                ((MousePressedListener) listener).onMousePressed(e);
+        try {
+            for (EventListener listener : listeners) {
+                if (listener instanceof MousePressedListener) {
+                    ((MousePressedListener) listener).onMousePressed(e);
+                }
             }
+        } catch(ConcurrentModificationException ignored){
+            //Ignore the exception as this will occur when the event is posted as an object is created
+            //I manually trigger any required actions that are skipped due to the exception (see DragableComponent.java, forceDrag(II)V )
         }
     }
     public static void postMouseReleasedEvent(MouseEvent e){
@@ -30,6 +33,13 @@ public class EventManager {
         for(EventListener listener : listeners){
             if(listener instanceof MouseDraggedListener){
                 ((MouseDraggedListener) listener).onMouseDragged(e);
+            }
+        }
+    }
+    public static void postMouseMovedEvent(MouseEvent e){
+        for(EventListener listener : listeners){
+            if(listener instanceof MouseMovedListener){
+                ((MouseMovedListener) listener).onMouseMoved(e);
             }
         }
     }

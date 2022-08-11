@@ -1,0 +1,4 @@
+Components can be dragged out of window
+
+Fix:
+Add code that checks if a component is out of the window bounds when the mouse is released

@@ -8,11 +8,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-public class RenderFrame extends JPanel {
+public class ContentPane extends JPanel {
 
     private JLayeredPane layeredPane;
 
-    public RenderFrame() {
+    public ContentPane() {
         //Create and set up the layered pane.
         setLayout(null);
         layeredPane = new JLayeredPane();
@@ -66,7 +66,7 @@ public class RenderFrame extends JPanel {
 
             @Override
             public void mouseMoved(MouseEvent e) {
-
+                EventManager.postMouseMovedEvent(e);
             }
         });
     }

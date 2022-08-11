@@ -1,6 +1,8 @@
-import render.RenderFrame;
-import render.components.SideBar;
+import render.ContentPane;
+import render.ui.SideBar;
 import render.components.electrical.Switch;
+import render.ui.WireTool;
+import render.ui.statics.StaticSwitch;
 import util.Constants;
 
 import javax.swing.*;
@@ -17,7 +19,7 @@ public class CircuitPlanner {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Create and set up the content pane.
-        RenderFrame contentPane = new RenderFrame();
+        ContentPane contentPane = new ContentPane();
         contentPane.setOpaque(true);
         frame.setContentPane(contentPane);
 
@@ -27,11 +29,12 @@ public class CircuitPlanner {
         Constants.contentPane = contentPane;
     }
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         createAndShowGUI();
 
         Constants.contentPane.addComponent(new SideBar(), Constants.L_BACKGROUND);
-        Constants.contentPane.addComponent(new Switch(8, 50), Constants.L_COMPONENT);
+        Constants.contentPane.addComponent(new StaticSwitch(8, 50), Constants.L_UI);
+        Constants.contentPane.addComponent(Constants.wireTool, Constants.L_UI);
     }
 
 }

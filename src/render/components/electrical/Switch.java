@@ -24,5 +24,10 @@ public class Switch extends DragableComponent {
         g2d.drawLine(28, 16, 28 + 15, 6);
         g2d.drawRoundRect(28 + 15, 16, 8, 8, 8, 8);
         g2d.drawLine(28 + 15 + 8, 20, 28 + 15 + 8 + 16, + 20);
+
+        if(drawWireToolNode){
+            g2d.setColor(Color.orange);
+            g2d.drawOval(0, 20, 6, 6);
+        }
     }
 }

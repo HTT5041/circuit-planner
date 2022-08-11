@@ -1,4 +1,4 @@
-package render.components;
+package render.ui;
 
 import util.Constants;
 
