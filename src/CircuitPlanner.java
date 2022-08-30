@@ -26,6 +26,7 @@ public class CircuitPlanner {
         //Display the window.
         frame.setVisible(true);
 
+        Constants.frame = frame;
         Constants.contentPane = contentPane;
     }
 

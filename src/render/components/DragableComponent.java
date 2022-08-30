@@ -6,19 +6,17 @@ import events.impl.MouseMovedListener;
 import events.impl.MousePressedListener;
 import events.impl.MouseReleasedListener;
 import util.Constants;
+import wiring.WireNodeManager;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.MouseEvent;
 
 public class DragableComponent extends JPanel implements MousePressedListener, MouseReleasedListener, MouseDraggedListener, MouseMovedListener {
 
-    protected int x;
-    protected int y;
-    protected int width;
-    protected int height;
-
-    protected boolean drawWireToolNode = false;
+    public int x;
+    public int y;
+    public int width;
+    public int height;
 
     private boolean isDragging;
 
@@ -27,6 +25,7 @@ public class DragableComponent extends JPanel implements MousePressedListener, M
 
     public DragableComponent(){
         EventManager.registerListener(this);
+        WireNodeManager.register(this);
     }
 
     public void forceDrag(int _xRel, int _yRel){
@@ -87,22 +86,7 @@ public class DragableComponent extends JPanel implements MousePressedListener, M
         }
     }
 
-    private boolean isMouseInBounds(){
-        return MouseInfo.getPointerInfo().getLocation().getX() > x && MouseInfo.getPointerInfo().getLocation().getX() < x + width
-                && MouseInfo.getPointerInfo().getLocation().getY() > y && MouseInfo.getPointerInfo().getLocation().getY() < y + height;
-    }
-
     @Override
     public void onMouseMoved(MouseEvent e) {
-        if(Constants.wireTool.enabled && isMouseInBounds()){
-            drawWireToolNode = true;
-           Constants.contentPane.repaintScreen();
-        } else {
-            if(drawWireToolNode){
-                drawWireToolNode = false;
-                Constants.contentPane.repaintScreen();
-            }
-            drawWireToolNode = false;
-        }
     }
 }
