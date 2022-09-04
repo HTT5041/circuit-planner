@@ -26,6 +26,11 @@ public class ContentPane extends JPanel {
         repaintScreen();
     }
 
+    public void removeComponent(Component c){
+        layeredPane.remove(c);
+        repaintScreen();
+    }
+
     public void repaintScreen(){
         this.revalidate();
         this.repaint();

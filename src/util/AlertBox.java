@@ -2,27 +2,24 @@ package util;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
-public class AlertBox extends JPanel {
+public class AlertBox extends JPanel implements SchedulerCallback {
 
     private String title;
-    private String[] text = new String[]{"", ""};
+    private ArrayList<String> lines;
     private int timeout;
 
     public AlertBox(String _title, String _text, int timeout_s){
         setBounds(250, 160, 300, 240);
         title = _title;
-
-        if(_text.length() <= 40){
-            text[0] = _text;
-        } else {
-            text[0] = _text.substring(0, 39);
-            text[1] = _text.substring(39, _text.length()-1);
-        }
-
+        lines = Utils.splitString(_text, 40);
         timeout = timeout_s;
+
         Constants.contentPane.addComponent(this, Constants.L_POPUP);
         Constants.contentPane.repaintScreen();
+
+        Constants.scheduler.scheduleEvent(this, timeout);
     }
 
     @Override
@@ -38,10 +35,15 @@ public class AlertBox extends JPanel {
         g2d.drawString(title, 5, 20);
         g2d.setFont(new Font("Monospaced", Font.PLAIN, 12));
         int lineNo = 0;
-        for(String line : text) {
+        for(String line : lines) {
             g2d.drawString(line, 5, 50 + (15*lineNo));
             lineNo++;
         }
 
+    }
+
+    @Override
+    public void callback() {
+        Constants.contentPane.removeComponent(this);
     }
 }

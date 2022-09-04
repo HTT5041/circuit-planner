@@ -8,6 +8,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Constants {
+    public static Scheduler scheduler;
+
     public static ContentPane contentPane;
     public static JFrame frame;
     public static int displayWidth = 800;

@@ -5,6 +5,7 @@ import util.Constants;
 
 import java.awt.event.MouseEvent;
 
+// Static switch for the Sidebar component
 public class StaticSwitch extends Switch {
     public StaticSwitch(int x1, int y1) {
         super(x1, y1);

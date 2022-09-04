@@ -4,6 +4,7 @@ import render.components.electrical.Switch;
 import render.ui.WireTool;
 import render.ui.statics.StaticSwitch;
 import util.Constants;
+import util.Scheduler;
 
 import javax.swing.*;
 
@@ -31,6 +32,8 @@ public class CircuitPlanner {
     }
 
     public static void main(String[] args) {
+        Constants.scheduler = new Scheduler();
+
         createAndShowGUI();
 
         Constants.contentPane.addComponent(new SideBar(), Constants.L_BACKGROUND);

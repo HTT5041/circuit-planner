@@ -133,7 +133,7 @@ public class WireNodeManager extends JPanel implements MousePressedListener, Mou
 
     @Override
     public void onMousePressed(MouseEvent e) {
-        if(isMouseInBoundsOfAny()){
+        if(Constants.wireTool.enabled && isMouseInBoundsOfAny()){
             DragableComponent compHovered = getCompMouseOver();
             if(compHovered != null){
                 if((e.getX() - compHovered.x) > compHovered.width/2){
