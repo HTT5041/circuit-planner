@@ -4,9 +4,7 @@ import events.EventManager;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 
 public class ContentPane extends JPanel {
 
@@ -19,6 +17,7 @@ public class ContentPane extends JPanel {
         layeredPane.setSize(800, 600);
         add(layeredPane);
         addAWTEventListeners();
+        setFocusable(true);
     }
 
     public void addComponent(Component c, int layer){
@@ -72,6 +71,22 @@ public class ContentPane extends JPanel {
             @Override
             public void mouseMoved(MouseEvent e) {
                 EventManager.postMouseMovedEvent(e);
+            }
+        });
+
+        addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                EventManager.postKeyTypedEvent(e);
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
             }
         });
     }

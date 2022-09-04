@@ -1,13 +1,12 @@
 package render.ui.statics;
 
-import render.components.electrical.Switch;
+import render.components.electrical.Cell;
 import util.Constants;
 
 import java.awt.event.MouseEvent;
 
-// Static switch for the Sidebar component
-public class StaticSwitch extends Switch implements StaticComponent {
-    public StaticSwitch(int x1, int y1) {
+public class StaticCell extends Cell implements StaticComponent {
+    public StaticCell(int x1, int y1) {
         super(x1, y1);
     }
 
@@ -32,10 +31,11 @@ public class StaticSwitch extends Switch implements StaticComponent {
             int xRel = e.getX() - x;
             int yRel = e.getY() - y;
 
-            Switch newSwitch = new Switch(x, y);
-            Constants.contentPane.addComponent(newSwitch, Constants.L_COMPONENT);
+            Cell newCell = new Cell(x, y);
+            Constants.contentPane.addComponent(newCell, Constants.L_COMPONENT);
 
-            newSwitch.forceDrag(xRel, yRel);
+            newCell.forceDrag(xRel, yRel);
         }
     }
+
 }

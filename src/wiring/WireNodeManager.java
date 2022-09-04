@@ -49,7 +49,7 @@ public class WireNodeManager extends JPanel implements MousePressedListener, Mou
         return rv;
     }
 
-    private DragableComponent getCompMouseOver(){
+    public DragableComponent getCompMouseOver(){
         for (DragableComponent comp:
                 components.keySet()) {
             if(isMouseInBounds(comp))
@@ -59,6 +59,7 @@ public class WireNodeManager extends JPanel implements MousePressedListener, Mou
     }
 
     public static void drawWireNodes(Graphics g, DragableComponent comp){
+        //Todo fix for rotated components
         Graphics2D g2d = (Graphics2D) g;
 
         if(isMouseInBounds(comp) && Constants.wireTool.enabled) {

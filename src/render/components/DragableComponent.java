@@ -1,22 +1,25 @@
 package render.components;
 
 import events.EventManager;
-import events.impl.MouseDraggedListener;
-import events.impl.MouseMovedListener;
-import events.impl.MousePressedListener;
-import events.impl.MouseReleasedListener;
+import events.impl.*;
+import render.ui.statics.StaticComponent;
 import util.Constants;
+import util.Utils;
 import wiring.WireNodeManager;
 
 import javax.swing.*;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-public class DragableComponent extends JPanel implements MousePressedListener, MouseReleasedListener, MouseDraggedListener, MouseMovedListener {
+public abstract class DragableComponent extends JPanel implements MousePressedListener, MouseReleasedListener, MouseDraggedListener, MouseMovedListener, KeyTypedListener {
+
+    public String compUUID;
 
     public int x;
     public int y;
     public int width;
     public int height;
+    public boolean rotated = false;
 
     private boolean isDragging;
 
@@ -24,6 +27,8 @@ public class DragableComponent extends JPanel implements MousePressedListener, M
     private int yRel;
 
     public DragableComponent(){
+        compUUID = Utils.generateUUID();
+        System.out.println("Created "+ getClass().getSimpleName() +" with UUID "+ compUUID);
         EventManager.registerListener(this);
         WireNodeManager.register(this);
     }
@@ -40,8 +45,27 @@ public class DragableComponent extends JPanel implements MousePressedListener, M
             x = e.getX() - xRel;
             y = e.getY() - yRel;
 
-            setBounds(x, y, width, height);
+            if (rotated) {
+                setBounds(x, y, height, width);
+            } else {
+                setBounds(x, y, width, height);
+            }
             Constants.contentPane.repaintScreen();
+        }
+    }
+
+    @Override
+    public void onKeyTyped(KeyEvent e) {
+        if(Constants.wnm.getCompMouseOver() == this && !(this instanceof StaticComponent)) { //Steal the wire node manager method (it does the job :D)
+            if (e.getKeyChar() == 'r') {
+                rotated = !rotated;
+                if (rotated) {
+                    setBounds(x, y, height, width);
+                } else {
+                    setBounds(x, y, width, height);
+                }
+                Constants.contentPane.repaintScreen();
+            }
         }
     }
 
@@ -81,7 +105,11 @@ public class DragableComponent extends JPanel implements MousePressedListener, M
         }
 
         if(moveAndRepaint){
-            setBounds(x, y, width, height);
+            if (rotated) {
+                setBounds(x, y, height, width);
+            } else {
+                setBounds(x, y, width, height);
+            }
             Constants.contentPane.repaintScreen();
         }
     }

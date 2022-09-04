@@ -2,6 +2,7 @@ package events;
 
 import events.impl.*;
 
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
@@ -40,6 +41,13 @@ public class EventManager {
         for(EventListener listener : listeners){
             if(listener instanceof MouseMovedListener){
                 ((MouseMovedListener) listener).onMouseMoved(e);
+            }
+        }
+    }
+    public static void postKeyTypedEvent(KeyEvent e){
+        for(EventListener listener : listeners){
+            if(listener instanceof KeyTypedListener){
+                ((KeyTypedListener) listener).onKeyTyped(e);
             }
         }
     }

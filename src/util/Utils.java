@@ -1,6 +1,7 @@
 package util;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class Utils {
 
@@ -22,5 +23,9 @@ public class Utils {
         }
         lines.add(line);
         return lines;
+    }
+
+    public static String generateUUID(){
+        return UUID.randomUUID().toString();
     }
 }
