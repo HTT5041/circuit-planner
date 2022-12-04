@@ -16,7 +16,7 @@ public class WireTool extends JPanel implements MousePressedListener {
     public boolean enabled = false;
 
     public WireTool() {
-        setBounds(35, 10, 36, 36);
+        setBounds(21, 10, 36, 36);
 
         try {
             JLabel imgLabel = new JLabel(new ImageIcon(ImageIO.read(new File("assets/power-cable.png"))));
@@ -37,10 +37,10 @@ public class WireTool extends JPanel implements MousePressedListener {
         } else {
             g.setColor(Color.red);
         }
-        g.fillRoundRect(0, 0, 35, 35, 20, 20);
+        g.fillRoundRect(0, 0, 35, 30, 20, 20);
 
         g.setColor(Color.black);
-        g.drawRoundRect(0, 0, 35, 35, 20,20);
+        g.drawRoundRect(0, 0, 35, 30, 20,20);
     }
 
     @Override

@@ -1,10 +1,5 @@
 import render.ContentPane;
-import render.components.electrical.Cell;
-import render.components.electrical.Lamp;
-import render.components.electrical.Resistor;
 import render.ui.SideBar;
-import render.components.electrical.Switch;
-import render.ui.WireTool;
 import render.ui.statics.StaticCell;
 import render.ui.statics.StaticLamp;
 import render.ui.statics.StaticResistor;

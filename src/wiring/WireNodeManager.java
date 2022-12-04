@@ -6,6 +6,7 @@ import events.impl.MouseMovedListener;
 import events.impl.MousePressedListener;
 import events.impl.MouseReleasedListener;
 import render.components.DragableComponent;
+import render.ui.statics.StaticComponent;
 import util.Constants;
 import util.Utils;
 
@@ -151,5 +152,15 @@ public class WireNodeManager extends JPanel implements MousePressedListener, Mou
     @Override
     public void onMouseReleased(MouseEvent e) {
 
+    }
+
+    public static ArrayList<DragableComponent> getSaveableComponents(){
+        ArrayList<DragableComponent> rv = new ArrayList<DragableComponent>();
+        for (DragableComponent comp:
+                components.keySet()) {
+            if(comp instanceof StaticComponent) continue;
+            rv.add(comp);
+        }
+        return rv;
     }
 }
