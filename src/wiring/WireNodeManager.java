@@ -6,13 +6,13 @@ import events.impl.MouseMovedListener;
 import events.impl.MousePressedListener;
 import events.impl.MouseReleasedListener;
 import render.components.DragableComponent;
+import render.ui.statics.StaticComponent;
 import util.Constants;
 import util.Utils;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class WireNodeManager extends JPanel implements MousePressedListener, MouseReleasedListener, MouseDraggedListener, MouseMovedListener {
@@ -26,7 +26,7 @@ public class WireNodeManager extends JPanel implements MousePressedListener, Mou
     }
 
     public static void register(DragableComponent comp) {
-        components.put(comp, new WireNode[]{new WireNode(), new WireNode()});
+        components.put(comp, new WireNode[]{new WireNode(0), new WireNode(1)});
     }
     public static void deregister(DragableComponent comp) {
         components.remove(comp);
@@ -59,7 +59,9 @@ public class WireNodeManager extends JPanel implements MousePressedListener, Mou
     }
 
     public static void drawWireNodes(Graphics g, DragableComponent comp){
-        //Todo fix for rotated components
+        if(comp instanceof StaticComponent)
+            return;
+
         Graphics2D g2d = (Graphics2D) g;
 
         if(isMouseInBounds(comp) && Constants.wireTool.enabled) {
@@ -67,17 +69,30 @@ public class WireNodeManager extends JPanel implements MousePressedListener, Mou
             if(components.get(comp)[0].isSelected){
                 g2d.setColor(Color.green);
             }
+
             g2d.fillOval(-1, (comp.height / 2) - 4, 8, 8);
 
             g2d.setColor(Color.orange);
             if(components.get(comp)[1].isSelected){
                 g2d.setColor(Color.green);
             }
+
             g2d.fillOval(comp.width - 8, (comp.height / 2) - 4, 8, 8);
         }
     }
 
+    public static DragableComponent findCompFromWireNode(WireNode node){
+        for (DragableComponent comp:
+                components.keySet()) {
+            if(components.get(comp)[0] == node || components.get(comp)[1] == node)
+                return comp;
+        }
+        return null;
+    }
+
     private static void linkNodes(){
+        //todo add check for already bound nodes
+
         WireNode selectedNode1 = null;
         WireNode selectedNode2 = null;
 
@@ -104,9 +119,18 @@ public class WireNodeManager extends JPanel implements MousePressedListener, Mou
                     selectedNode2 = wnArr[0];
                 }
             }
+            //There should only be 2 possible nodes selected at any one time
         }
 
         if(selectedNode2 != null){
+            selectedNode1.partner = selectedNode2;
+            selectedNode2.partner = selectedNode1;
+            selectedNode1.isBound = true;
+            selectedNode2.isBound = true;
+            selectedNode1.isSelected = false;
+            selectedNode2.isSelected = false;
+
+
             //link them
         }
 
@@ -136,13 +160,15 @@ public class WireNodeManager extends JPanel implements MousePressedListener, Mou
     public void onMousePressed(MouseEvent e) {
         if(Constants.wireTool.enabled && isMouseInBoundsOfAny()){
             DragableComponent compHovered = getCompMouseOver();
-            if(compHovered != null){
+            if(compHovered != null && !(compHovered instanceof StaticComponent)){
                 if((e.getX() - compHovered.x) > compHovered.width/2){
                     components.get(compHovered)[1].isSelected = !components.get(compHovered)[1].isSelected;
                 } else {
                     components.get(compHovered)[0].isSelected = !components.get(compHovered)[0].isSelected;
                 }
                 Constants.contentPane.repaintScreen();
+
+                //Todo add check for already bound nodes, if it is already bound then delete the wire
                 linkNodes();
             }
         }

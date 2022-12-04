@@ -1,0 +1,1 @@
+- scrapped rotating components as it would be too time consuming to change everything in the limited time I have

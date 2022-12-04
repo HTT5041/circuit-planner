@@ -1,0 +1,1 @@
+Static components have node connections when they shouldn't.

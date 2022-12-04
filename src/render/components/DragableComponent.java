@@ -19,7 +19,6 @@ public abstract class DragableComponent extends JPanel implements MousePressedLi
     public int y;
     public int width;
     public int height;
-    public boolean rotated = false;
 
     private boolean isDragging;
 
@@ -45,27 +44,9 @@ public abstract class DragableComponent extends JPanel implements MousePressedLi
             x = e.getX() - xRel;
             y = e.getY() - yRel;
 
-            if (rotated) {
-                setBounds(x, y, height, width);
-            } else {
-                setBounds(x, y, width, height);
-            }
-            Constants.contentPane.repaintScreen();
-        }
-    }
+            setBounds(x, y, width, height);
 
-    @Override
-    public void onKeyTyped(KeyEvent e) {
-        if(Constants.wnm.getCompMouseOver() == this && !(this instanceof StaticComponent)) { //Steal the wire node manager method (it does the job :D)
-            if (e.getKeyChar() == 'r') {
-                rotated = !rotated;
-                if (rotated) {
-                    setBounds(x, y, height, width);
-                } else {
-                    setBounds(x, y, width, height);
-                }
-                Constants.contentPane.repaintScreen();
-            }
+            Constants.contentPane.repaintScreen();
         }
     }
 
@@ -105,13 +86,14 @@ public abstract class DragableComponent extends JPanel implements MousePressedLi
         }
 
         if(moveAndRepaint){
-            if (rotated) {
-                setBounds(x, y, height, width);
-            } else {
-                setBounds(x, y, width, height);
-            }
+            setBounds(x, y, width, height);
             Constants.contentPane.repaintScreen();
         }
+    }
+
+    @Override
+    public void onKeyTyped(KeyEvent e) {
+
     }
 
     @Override
