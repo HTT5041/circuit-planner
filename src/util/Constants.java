@@ -19,6 +19,10 @@ public class Constants {
     public static WireNodeManager wnm = new WireNodeManager();
 
     public static Color lightGrey = new Color(170, 170, 170);
+    public static Color menuBackground = new Color(234,235,233);
+    public static Color buttonColour = new Color(207,216,220);
+    public static Color textColour = new Color(123,141,147);
+
 
     public static int L_BACKGROUND = 1;
     public static int L_UI = 2;

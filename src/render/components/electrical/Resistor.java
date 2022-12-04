@@ -2,6 +2,8 @@ package render.components.electrical;
 
 import render.components.DragableComponent;
 
+import java.awt.*;
+
 public class Resistor extends DragableComponent {
 
     public Resistor(int x1, int y1){
@@ -15,6 +17,7 @@ public class Resistor extends DragableComponent {
     @Override
     public void paintComponent(java.awt.Graphics g) {
         java.awt.Graphics2D g2d = (java.awt.Graphics2D) g;
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setColor(java.awt.Color.BLACK);
         g2d.setStroke(new java.awt.BasicStroke(1));
 

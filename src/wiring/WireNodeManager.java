@@ -5,6 +5,7 @@ import events.impl.MouseDraggedListener;
 import events.impl.MouseMovedListener;
 import events.impl.MousePressedListener;
 import events.impl.MouseReleasedListener;
+import render.ContentPane;
 import render.components.DragableComponent;
 import render.ui.statics.StaticComponent;
 import util.Constants;
@@ -13,7 +14,9 @@ import util.Utils;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.UUID;
 
 public class WireNodeManager extends JPanel implements MousePressedListener, MouseReleasedListener, MouseDraggedListener, MouseMovedListener {
 
@@ -28,8 +31,13 @@ public class WireNodeManager extends JPanel implements MousePressedListener, Mou
     public static void register(DragableComponent comp) {
         components.put(comp, new WireNode[]{new WireNode(0), new WireNode(1)});
     }
-    public static void deregister(DragableComponent comp) {
-        components.remove(comp);
+
+    public static HashMap<DragableComponent, WireNode[]> getManagedComponents(){
+        return components;
+    }
+
+    public static void clearManagedComponents(){
+        components.clear();
     }
 
     private static boolean isMouseInBounds(DragableComponent comp){
@@ -109,14 +117,14 @@ public class WireNodeManager extends JPanel implements MousePressedListener, Mou
                     selectedNode1 = wnArr[0];
                 }
                 if (wnArr[1].isSelected) {
-                    selectedNode1 = wnArr[0];
+                    selectedNode1 = wnArr[1];
                 }
             } else {
                 if (wnArr[0].isSelected) {
                     selectedNode2 = wnArr[0];
                 }
                 if (wnArr[1].isSelected) {
-                    selectedNode2 = wnArr[0];
+                    selectedNode2 = wnArr[1];
                 }
             }
             //There should only be 2 possible nodes selected at any one time
@@ -130,8 +138,9 @@ public class WireNodeManager extends JPanel implements MousePressedListener, Mou
             selectedNode1.isSelected = false;
             selectedNode2.isSelected = false;
 
+            System.out.println("adding wire");
+            WireCanvas.addWire(new Wire(selectedNode1, selectedNode2));
 
-            //link them
         }
 
     }
