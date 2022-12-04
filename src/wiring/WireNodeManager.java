@@ -178,4 +178,14 @@ public class WireNodeManager extends JPanel implements MousePressedListener, Mou
     public void onMouseReleased(MouseEvent e) {
 
     }
+
+    public static ArrayList<DragableComponent> getSaveableComponents(){
+        ArrayList<DragableComponent> rv = new ArrayList<DragableComponent>();
+        for (DragableComponent comp:
+                components.keySet()) {
+            if(comp instanceof StaticComponent) continue;
+            rv.add(comp);
+        }
+        return rv;
+    }
 }
