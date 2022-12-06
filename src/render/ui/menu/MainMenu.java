@@ -2,17 +2,25 @@ package render.ui.menu;
 
 import events.EventManager;
 import events.impl.EventListener;
+import render.ui.LoadFile;
 import util.Constants;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class MainMenu extends JLayeredPane {
+    private static final Button newCircuitBtn = new Button(280, 120, "New Circuit",
+            () -> Constants.contentPane.gotoEditor());
+    private static final Button loadCircuitBtn = new Button(280, 200, "Load Circuit",
+            LoadFile::loadFile);
+    private static final Button exitBtn = new Button(280, 280, "Exit",
+            () -> System.exit(1));
+
     public MainMenu() {
         setBounds(0, 0, Constants.displayWidth, Constants.displayHeight);
-        add(new Button(280, 120, "New Circuit"), Constants.L_UI);
-        add(new Button(280, 200, "Load Circuit"), Constants.L_UI);
-        add(new Button(280, 280, "Exit"), Constants.L_UI);
+        add(newCircuitBtn, Constants.L_UI);
+        add(loadCircuitBtn, Constants.L_UI);
+        add(exitBtn, Constants.L_UI);
         registerListeners();
     }
 

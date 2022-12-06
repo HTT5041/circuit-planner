@@ -1,8 +1,6 @@
 package render.ui.menu;
 
-import events.EventManager;
 import events.impl.MousePressedListener;
-import render.ui.LoadFile;
 import util.Constants;
 
 import javax.swing.*;
@@ -11,8 +9,10 @@ import java.awt.event.MouseEvent;
 
 public class Button extends JPanel implements MousePressedListener {
     private String text;
+    private ButtonAction action;
 
-    public Button(int x, int y, String text) {
+    public Button(int x, int y, String text, ButtonAction action) {
+        this.action = action;
         this.text = text;
         setBounds(x, y, 228, 71);
     }
@@ -40,19 +40,7 @@ public class Button extends JPanel implements MousePressedListener {
     public void onMousePressed(MouseEvent e) {
         //If mouse press in on this button
         if (e.getX() > getX() && e.getX() < getX() + getWidth() && e.getY() > getY() && e.getY() < getY() + getHeight()) {
-            //If the button is the new circuit button
-            if (text.equals("New Circuit")) {
-                //Deregister the button listeners for the main menu
-                Constants.contentPane.gotoEditor();
-            }
-            //If the button is the load circuit button
-            else if (text.equals("Load Circuit")) {
-                LoadFile.loadFile();
-            }
-            //If the button is the exit button
-            else if (text.equals("Exit")) {
-                System.exit(1);
-            }
+            action.onPress(); //Call anonymous function which was passed in the constructor
         }
     }
 }

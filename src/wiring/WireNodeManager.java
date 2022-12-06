@@ -5,7 +5,6 @@ import events.impl.MouseDraggedListener;
 import events.impl.MouseMovedListener;
 import events.impl.MousePressedListener;
 import events.impl.MouseReleasedListener;
-import render.ContentPane;
 import render.components.DragableComponent;
 import render.ui.statics.StaticComponent;
 import util.Constants;
@@ -24,12 +23,9 @@ public class WireNodeManager extends JPanel implements MousePressedListener, Mou
 
     private boolean drawWireToolNode = false;
 
-    public WireNodeManager(){
-        EventManager.registerListener(this);
-    }
 
     public static void register(DragableComponent comp) {
-        components.put(comp, new WireNode[]{new WireNode(0), new WireNode(1)});
+        components.put(comp, new WireNode[]{new WireNode(comp,0), new WireNode(comp,1)});
     }
 
     public static HashMap<DragableComponent, WireNode[]> getManagedComponents(){
@@ -45,6 +41,15 @@ public class WireNodeManager extends JPanel implements MousePressedListener, Mou
         Point loc = Constants.frame.getLocation();
         return offset.getX() - loc.getX() > comp.x && offset.getX() - loc.getX() < comp.x + comp.width
                 && offset.getY() - loc.getY()-20 > comp.y && offset.getY() - loc.getY()-20 < comp.y + comp.height;
+    }
+
+    public static WireNode[] getNodeByUUID(String uuid) {
+        for(DragableComponent comp : components.keySet()){
+            if(comp.compUUID.equals(uuid)){
+                return components.get(comp);
+            }
+        }
+        return null;
     }
 
     private boolean isMouseInBoundsOfAny(){

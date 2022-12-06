@@ -1,6 +1,12 @@
 package render.ui;
 
+import render.ContentPane;
+import saveload.LoadDeserializer;
+import util.Constants;
+
 import javax.swing.*;
+import java.io.File;
+import java.io.FileReader;
 
 public class LoadFile {
 
@@ -22,8 +28,23 @@ public class LoadFile {
             }
         });
         int userSelection = fileChooser.showOpenDialog(null);
-        if(userSelection == 0) {
-            System.out.println("Load file: " + fileChooser.getSelectedFile().getAbsolutePath());
+        if(userSelection == JFileChooser.APPROVE_OPTION) {
+            File f = fileChooser.getSelectedFile();
+            try{
+                FileReader fr = new FileReader(f);
+                char[] data = new char[(int) f.length()];
+                fr.read(data);
+                fr.close();
+                String encodedSaveState = new String(data);
+
+                Constants.contentPane.gotoEditor();
+
+                LoadDeserializer.deSerialiseAndLoad(encodedSaveState);
+            } catch(Exception e){
+                e.printStackTrace();
+                System.exit(-1);
+            }
+
         }
     }
 

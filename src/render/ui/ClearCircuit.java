@@ -30,7 +30,6 @@ public class ClearCircuit extends JPanel implements MousePressedListener {
         } catch(IOException e){
             System.out.println("Error loading resource: assets/bin.png");
         }
-        EventManager.registerListener(this);
     }
 
     @Override
@@ -39,19 +38,22 @@ public class ClearCircuit extends JPanel implements MousePressedListener {
         g.fillRect(0, 0, 75, 600);
     }
 
+    public void clearCircuit(){
+        WireCanvas.clearWires();
+        WireNodeManager.clearManagedComponents();
+        for(Component c : Constants.contentPane.layeredPane.getComponents()){
+            if(c instanceof DragableComponent && !(c instanceof StaticComponent)){
+                EventManager.deRegisterListener((EventListener) c);
+                Constants.contentPane.layeredPane.remove(c);
+            }
+        }
+        Constants.contentPane.repaintScreen();
+    }
+
     @Override
     public void onMousePressed(MouseEvent e) {
         if(e.getX() > 18 && e.getX() < 58 && e.getY() > 500 && e.getY() < 545) {
-            SaveSerializer.serialize();
-            //WireCanvas.clearWires();
-            //WireNodeManager.clearManagedComponents();
-            //for(Component c : Constants.contentPane.layeredPane.getComponents()){
-            //    if(c instanceof DragableComponent && !(c instanceof StaticComponent)){
-            //        EventManager.deRegisterListener((EventListener) c);
-            //        Constants.contentPane.layeredPane.remove(c);
-            //    }
-            //}
-            //Constants.contentPane.repaintScreen();
+            clearCircuit();
         }
     }
 }

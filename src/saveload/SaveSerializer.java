@@ -1,18 +1,13 @@
 package saveload;
 
-import render.ContentPane;
 import render.components.DragableComponent;
 import render.ui.statics.StaticComponent;
 import util.Constants;
 import wiring.Wire;
 import wiring.WireCanvas;
-import wiring.WireNode;
-import wiring.WireNodeManager;
 
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,18 +29,24 @@ public class SaveSerializer {
 
         for(DragableComponent c : comps){
             sb.append("{");//Start component
-            sb.append(c.getClass().getSimpleName() + ","); //Add class name
-            sb.append(c.getX() + ","); //Add x
-            sb.append(c.getY() + ","); //Add y
-            sb.append(c.compUUID + "}"); //Add UUID (for linking wires)
+            sb.append(c.getClass().getSimpleName()).append(","); //Add class name
+            sb.append(c.getX()).append(","); //Add x
+            sb.append(c.getY()).append(","); //Add y
+            sb.append(c.compUUID); //Add UUID (for linking wires)
         }
+        sb.append("[EndComponents]");
 
         //Serialize wire nodes
         sb.append("[Wires]");
         ArrayList<Wire> wires = WireCanvas.getWires();
-
-
-        System.out.println(sb.toString());
+        for(Wire w : wires){
+            sb.append("{");//Start wire
+            sb.append(w.node1.parent.compUUID).append(","); //Add node 1 parent UUID
+            sb.append(w.node1.side).append(","); //Add node 1 side
+            sb.append(w.node2.parent.compUUID).append(","); //Add node 2 parent UUID
+            sb.append(w.node2.side); //Add node 2 side
+        }
+        sb.append("[EndWires]");
         return sb.toString();
     }
 

@@ -1,6 +1,8 @@
 package util;
 
 import render.ContentPane;
+import render.ui.ClearCircuit;
+import render.ui.menu.SettingsMenu;
 import wiring.WireNodeManager;
 import render.ui.WireTool;
 
@@ -17,6 +19,8 @@ public class Constants {
 
     public static WireTool wireTool = new WireTool();
     public static WireNodeManager wnm = new WireNodeManager();
+    public static SettingsMenu settingsMenu = new SettingsMenu();
+    public static ClearCircuit clearCircuit = new ClearCircuit();
 
     public static Color lightGrey = new Color(170, 170, 170);
     public static Color menuBackground = new Color(234,235,233);

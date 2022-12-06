@@ -1,14 +1,10 @@
 package render;
 
 import events.EventManager;
-import events.impl.EventListener;
-import render.ui.ClearCircuit;
+import render.ui.SettingsButton;
 import render.ui.SideBar;
 import render.ui.menu.MainMenu;
-import render.ui.statics.StaticCell;
-import render.ui.statics.StaticLamp;
-import render.ui.statics.StaticResistor;
-import render.ui.statics.StaticSwitch;
+import render.ui.statics.*;
 import util.Constants;
 import wiring.WireCanvas;
 
@@ -43,16 +39,38 @@ public class ContentPane extends JPanel {
         menuPane.deRegisterListeners();
         add(layeredPane);
 
+        EventManager.registerListener(Constants.wireTool);
+        EventManager.registerListener(Constants.wnm);
+        EventManager.registerListener(Constants.settingsMenu);
+        EventManager.registerListener(Constants.clearCircuit);
+
         Constants.contentPane.addComponent(new WireCanvas(), Constants.L_BACKGROUND);
         Constants.contentPane.addComponent(new SideBar(), Constants.L_BACKGROUND);
         Constants.contentPane.addComponent(Constants.wireTool, Constants.L_UI);
-        Constants.contentPane.addComponent(new ClearCircuit(), Constants.L_UI);
+        Constants.contentPane.addComponent(new SettingsButton(), Constants.L_UI);
+        Constants.contentPane.addComponent(Constants.clearCircuit, Constants.L_UI);
 
         // Add static components to the sidebar
-        Constants.contentPane.addComponent(new StaticSwitch(8, 50), Constants.L_UI);
-        Constants.contentPane.addComponent(new StaticCell(26, 75), Constants.L_UI);
-        Constants.contentPane.addComponent(new StaticResistor(8, 100), Constants.L_UI);
-        Constants.contentPane.addComponent(new StaticLamp(8, 125), Constants.L_UI);
+        Constants.contentPane.addComponent(new StaticSwitch(8, 75), Constants.L_UI);
+        Constants.contentPane.addComponent(new StaticCell(26, 100), Constants.L_UI);
+        Constants.contentPane.addComponent(new StaticResistor(8, 130), Constants.L_UI);
+        Constants.contentPane.addComponent(new StaticLamp(8, 160), Constants.L_UI);
+        Constants.contentPane.addComponent(new StaticVoltmeter(8, 190), Constants.L_UI);
+        Constants.contentPane.addComponent(new StaticAmmeter(8, 220), Constants.L_UI);
+        Constants.contentPane.addComponent(new StaticFuse(8, 250), Constants.L_UI);
+        Constants.contentPane.addComponent(new StaticThermistor(8, 280), Constants.L_UI);
+        Constants.contentPane.addComponent(new StaticVariableResistor(8, 310), Constants.L_UI);
+        Constants.contentPane.addComponent(new StaticDiode(8, 340), Constants.L_UI);
+        Constants.contentPane.addComponent(new StaticLED(8, 375), Constants.L_UI);
+    }
+
+    public void gotoMainMenu(){
+        Constants.clearCircuit.clearCircuit();
+        removeAll();
+        EventManager.deRegisterAllListeners();
+        add(menuPane);
+        menuPane.registerListeners();
+        repaintScreen();
     }
 
     public void addComponent(Component c, int layer){

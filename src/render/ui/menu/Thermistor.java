@@ -1,13 +1,12 @@
-package render.components.electrical;
+package render.ui.menu;
 
 import render.components.DragableComponent;
 import wiring.WireNodeManager;
 
 import java.awt.*;
 
-public class Resistor extends DragableComponent {
-
-    public Resistor(int x1, int y1){
+public class Thermistor extends DragableComponent {
+    public Thermistor(int x1, int y1) {
         x = x1;
         y = y1;
         width = 66;
@@ -26,7 +25,10 @@ public class Resistor extends DragableComponent {
         g2d.drawRect(15, 15, 36, 10);
         g2d.drawLine(51, 20, 66, 20);
 
+        g2d.drawLine(15, 28, 23, 28);
+        g2d.drawLine(23, 28, 51, 12);
+
         WireNodeManager.drawWireNodes(g, this);
     }
-}
 
+}
