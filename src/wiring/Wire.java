@@ -31,6 +31,7 @@ public class Wire {
 
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.setColor(Color.BLACK);
         g2d.drawLine(p1.x, p1.y, p2.x, p2.y);
     }
 }

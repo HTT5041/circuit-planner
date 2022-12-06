@@ -18,6 +18,7 @@ public class LED extends DragableComponent {
     public void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.setColor(Color.BLACK);
 
         g2d.drawLine(0, 20, 60, 20);
         g2d.drawOval(17, 7, 26, 26);

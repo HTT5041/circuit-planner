@@ -3,6 +3,8 @@ package render.components.electrical;
 import render.components.DragableComponent;
 import util.Utils;
 
+import java.awt.*;
+
 public class VariableResistor extends DragableComponent {
         public VariableResistor(int x1, int y1){
             x = x1;
@@ -13,11 +15,11 @@ public class VariableResistor extends DragableComponent {
         }
 
         @Override
-        public void paintComponent(java.awt.Graphics g) {
-            java.awt.Graphics2D g2d = (java.awt.Graphics2D) g;
-            g2d.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING, java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
-            g2d.setColor(java.awt.Color.BLACK);
-            g2d.setStroke(new java.awt.BasicStroke(1));
+        public void paintComponent(Graphics g) {
+            Graphics2D g2d = (Graphics2D) g;
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2d.setColor(Color.BLACK);
+            g2d.setStroke(new BasicStroke(1));
 
             g2d.drawLine(0, 20, 15, 20);
             g2d.drawRect(15, 15, 36, 10);
